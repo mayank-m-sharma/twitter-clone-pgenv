@@ -4,7 +4,9 @@
   >
     <!-- Upper section | Tabs & Tweet Button div -->
     <div @click="dropdown = false">
-      <button class="h-12 w-12 hover:bg-lightblue text-3xl text-blue">
+      <button
+        class="transform transition duration-200 ease-out h-12 w-12 hover:bg-lightblue text-3xl text-blue"
+      >
         <i class="fab fa-twitter"></i>
       </button>
       <!-- Tabs with icons -->
@@ -24,7 +26,7 @@
     <!-- Lower Section | Dropdown -->
     <div
       @click="dropdown = true"
-      class="relative lg:w-full mb-3 hover:bg-lightblue rounded-full"
+      class="transform transition duration-200 ease-out relative lg:w-full mb-3 hover:bg-lightblue rounded-full"
     >
       <button
         class="focus:outlined-none flex items-center justify-between w-full"
