@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col justify-between lg:w-1/5 border-r border-lighter lg:px-6 px-2 py-2"
+    class="transform transition duration-200 ease-out flex flex-col justify-between lg:w-1/5 border-r border-lighter lg:px-6 px-2 py-2"
   >
     <!-- Upper section | Tabs & Tweet Button div -->
     <div @click="dropdown = false">
@@ -13,8 +13,12 @@
       <button
         class="text-white bg-blue rounded-full font-semibold focus:outlined-none w-12 h-12 lg:h-auto lg:w-full p-3 hover:bg-darkblue"
       >
-        <p class="hidden lg:block">Tweet</p>
-        <i class="lg:hidden fa-solid fa-plus"></i>
+        <p class="transform transition duration-200 ease-out hidden lg:block">
+          Tweet
+        </p>
+        <i
+          class="transform transition duration-200 ease-out lg:hidden fa-solid fa-plus"
+        ></i>
       </button>
     </div>
     <!-- Lower Section | Dropdown -->

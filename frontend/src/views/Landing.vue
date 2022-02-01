@@ -1,8 +1,10 @@
 <template>
-  <div class="flex container h-screen w-full">
-    <Sidebar />
-    <Home />
-    <RightSection />
+  <div class="ml-5 mr-5">
+    <div class="flex h-screen w-full">
+      <Sidebar />
+      <Home />
+      <RightSection />
+    </div>
   </div>
 </template>
 
