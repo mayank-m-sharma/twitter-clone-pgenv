@@ -3,14 +3,31 @@
   <div
     class="hidden lg:block w-1/3 mt-3 border-l border-lighter h-full py-2 px-6 overflow-y-scroll relative"
   >
-    <input
-      type="text"
-      placeholder="Search Twitter"
-      class="pl-12 rounded-full w-full p-2 bg-lighter text-sm"
-    />
-    <i
-      class="fa-solid fa-magnifying-glass absolute left-0 top-4 ml-12 text-sm text-light"
-    ></i>
+    <div class="mb-5">
+      <input
+        type="text"
+        placeholder="    Search Twitter"
+        class="pl-12 rounded-full w-full p-3 bg-lighter text-sm"
+        v-bind:class="{ bgWhite: bgWhite }"
+        @focus="bgWhite = true"
+        @blur="bgWhite = false"
+      />
+      <!-- <i
+        class="fa-thin fa-magnifying-glass absolute left-0 top-4 ml-12 text-sm text-light"
+      ></i> -->
+      <img
+        class="h-5 w-5 absolute left-0 top-0 mt-5 ml-12"
+        src="../assets/search.png"
+        alt=""
+        v-bind:class="{ hiddenSearchBlack: bgWhite }"
+      />
+      <img
+        class="h-5 w-5 absolute left-0 top-0 mt-5 ml-12"
+        src="../assets/searchBlue.png"
+        alt=""
+        v-bind:class="{ hiddenSearchBlue: !bgWhite }"
+      />
+    </div>
     <!-- What's Happening Block -->
     <div class="w-full mt-2 mb-5 rounded-lg bg-lightest">
       <p class="p-3 text-lg font-bold">What's happening</p>
@@ -71,6 +88,7 @@ export default {
   name: "RightSection",
   data() {
     return {
+      bgWhite: false,
       happenings: [
         {
           id: 1,
@@ -152,4 +170,30 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.bgWhite {
+  background-color: white;
+}
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: rgb(65, 61, 61);
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: rgb(65, 61, 61);
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: rgb(65, 61, 61);
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: rgb(65, 61, 61);
+}
+.hiddenSearchBlack {
+  visibility: hidden;
+}
+.hiddenSearchBlue {
+  visibility: hidden;
+}
+</style>

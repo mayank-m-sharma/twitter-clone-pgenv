@@ -1,5 +1,4 @@
 <template>
-  <!-- #19A1EF -->
   <div class="flex flex-col pl-5 pr-5 pb-2">
     <!-- block one -->
     <div class="flex flex-row p-5 justify-start">
@@ -19,7 +18,7 @@
     <!-- block two -->
     <div class="flex flex-row justify-between">
       <!-- icons -->
-      <div class="flex flex-row lg:ml-14 items-center justify-between">
+      <div class="flex flex-row lg:ml-20 items-center justify-between">
         <img
           class="cursor-pointer h-5 w-5 ml-4"
           src="../../assets/media.png"

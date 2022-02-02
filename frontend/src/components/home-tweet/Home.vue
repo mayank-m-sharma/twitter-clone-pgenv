@@ -7,15 +7,19 @@
     </div>
     <!-- Post Tweet Section -->
     <PostTweet />
+    <!-- Tweet Section -->
+    <TweetSection />
   </div>
 </template>
 
 <script>
 import PostTweet from "./PostTweet.vue";
+import TweetSection from "./TweetSection.vue";
 export default {
   name: "Home",
   components: {
     PostTweet,
+    TweetSection,
   },
 };
 </script>
