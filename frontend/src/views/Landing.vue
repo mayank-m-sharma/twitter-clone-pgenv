@@ -12,7 +12,7 @@
 // @ is an alias to /src
 
 import Sidebar from "../components/sidebar/Sidebar.vue";
-import Home from "../components/Home.vue";
+import Home from "../components/home-tweet/Home.vue";
 import RightSection from "../components/RightSection.vue";
 export default {
   name: "Landing",
