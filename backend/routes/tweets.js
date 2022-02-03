@@ -7,11 +7,14 @@ const router = require("express").Router();
 // @access- PUBLIC
 router.get("/", async (req, res) => {
   try {
-    const tweets = await Tweet.query();
-    res.status(200).json(tweets);
+    const tweets = await Tweet.query()
+      .select("tweets.*", "user.*")
+      .joinRelated("user")
+      .orderBy("tweets.created_at");
+    res.json(tweets);
   } catch (error) {
     console.log(error);
-    res.status(501).json({ msg: "error" });
+    res.status(501).json(error);
   }
 });
 

@@ -2,10 +2,15 @@ const express = require("express");
 const knex = require("./knexfile");
 const app = express();
 const PORT = require("./config/config").PORT;
-
+const cors = require("cors");
 // expressjson-
 app.use(express.json());
-
+// origin access cors
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 // routes config -
 app.use("/api/users", require("./routes/users"));
 app.use("/api/tweets", require("./routes/tweets"));

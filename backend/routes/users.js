@@ -8,6 +8,7 @@ const User = require("../models/User");
 router.get("/", async (req, res) => {
   try {
     const user = await User.query();
+
     res.json(user);
   } catch (error) {
     console.log(error);

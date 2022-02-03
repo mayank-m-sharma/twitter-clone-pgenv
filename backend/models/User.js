@@ -32,7 +32,7 @@ class User extends Model {
   }
   static relationMappings = {
     tweets: {
-      relation: Model.HasOneRelation,
+      relation: Model.HasManyRelation,
       modelClass: Tweet,
       join: {
         from: "users.id",

@@ -53,5 +53,18 @@ class Tweet extends Model {
       },
     };
   }
+  static relationMappings() {
+    const User = require("./User");
+    return {
+      user: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: User,
+        join: {
+          from: "tweets.user_id",
+          to: "users.id",
+        },
+      },
+    };
+  }
 }
 module.exports = Tweet;
