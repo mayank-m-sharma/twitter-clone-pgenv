@@ -14,6 +14,9 @@ class User extends Model {
   static get passwordColumn() {
     return "password";
   }
+  static get avatarColumn() {
+    return "avatar";
+  }
   static get jsonSchema() {
     return {
       type: "object",
@@ -23,6 +26,7 @@ class User extends Model {
         name: { type: "string", minLength: 1, maxLength: 255 },
         email: { type: "string" },
         password: { type: "string" },
+        avatar: { type: "string" },
       },
     };
   }
