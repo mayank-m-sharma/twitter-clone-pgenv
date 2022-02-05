@@ -14,16 +14,15 @@
       <!-- Block 2 -  -->
       <div class="pl-5 flex flex-col justify-between">
         <!-- block 1 - | name username . time posted -->
-        <div class="pb-1 flex flex-row w-1/2">
+        <div class="pb-1 flex flex-row w-1/2 content-center">
           <p class="font-bold mr-1">{{ tweet.name }}</p>
-          <p>{{ tweet.id }}</p>
           <p class="text-sm mr-2">{{ tweet.username }}</p>
           <img
-            class="h-1 w-1 mt-2 opacity-1"
+            class="h-1 w-1 opacity-1 dot"
             src="../../assets/dot.png"
             alt=""
           />
-          <p class="text-sm ml-2">2h</p>
+          <p class="text-sm ml-2 hours">2h</p>
         </div>
         <!-- block 2 - | Tweet paragraph -->
         <p class="pb-3">
@@ -39,24 +38,35 @@
         </div>
         <!-- block 4 - | Tweet action buttons -->
         <div class="flex flex-row pt-3 pl-12 pr-12 justify-between">
-          <div class="flex flex-row justify-between items-center">
+          <div
+            class="flex flex-row justify-between items-center cursor-pointer"
+          >
             <img class="h-4 w-4" src="../../assets/reply.png" alt="" />
             <p class="text-sm ml-3 text-grey">{{ tweet.reply_count }}</p>
           </div>
-          <div class="flex flex-row justify-between items-center">
+          <div
+            class="flex flex-row justify-between items-center cursor-pointer"
+          >
             <img class="h-4 w-4" src="../../assets/retweet.png" alt="" />
             <p class="text-sm ml-3 text-grey">{{ tweet.retweet_count }}</p>
           </div>
-          <div class="flex flex-row justify-between items-center">
+          <div
+            class="flex flex-row justify-between items-center cursor-pointer"
+          >
             <img class="h-4 w-4" src="../../assets/heart.png" alt="" />
             <p class="text-sm ml-3 text-grey">{{ tweet.hearts_count }}</p>
           </div>
-          <div class="flex flex-row justify-between items-center">
+          <div
+            class="flex flex-row justify-between items-center cursor-pointer"
+          >
             <img class="h-4 w-4" src="../../assets/upload.png" alt="" />
           </div>
         </div>
       </div>
     </div>
+    <p class="text-md ml-4 p-5 text-center cursor-pointer text-blue">
+      Show more
+    </p>
   </div>
 </template>
 
@@ -74,4 +84,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.dot {
+  margin-top: 10px;
+  opacity: 0.5;
+}
+.hours {
+  margin-top: 2px;
+}
+</style>

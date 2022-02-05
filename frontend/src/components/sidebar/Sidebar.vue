@@ -69,7 +69,7 @@
           Add an exisiting account
         </button>
         <button
-          @click="dropdown = false"
+          @click="logoutHandler"
           class="w-full text-left hover:bg-lightest border-t border-lighter p-3 text-sm"
         >
           Log out @mayank_m_sharma
@@ -81,8 +81,16 @@
 
 <script>
 import Tabs from "./Tabs";
+// import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 export default {
   name: "Sidebar",
+  methods: {
+    ...mapActions(["logoutUser"]),
+    logoutHandler() {
+      this.logoutUser();
+    },
+  },
   components: {
     Tabs,
   },

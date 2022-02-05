@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Landing from "../views/Landing.vue";
-
+import Login from "../components/Login.vue";
+import Signup from "../components/Signup.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -9,6 +10,16 @@ const routes = [
     path: "/",
     name: "Landing",
     component: Landing,
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
+  },
+  {
+    path: "/signup",
+    name: "Signup",
+    component: Signup,
   },
   {
     path: "/about",
