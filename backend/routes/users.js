@@ -1,5 +1,5 @@
 const router = require("express").Router();
-
+const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 // @route - GET /api/users
@@ -15,10 +15,10 @@ router.get("/", async (req, res) => {
   }
 });
 
-// @route - POST /api/users
+// @route - POST /api/users/register
 // @desc  - create new user
 // @access- PUBLIC
-router.post("/", async (req, res) => {
+router.post("/register", async (req, res) => {
   try {
     const newUser = await User.query().insert({
       name: req.body.name,
@@ -30,6 +30,39 @@ router.post("/", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+// @route - POST /api/users/login
+// @desc  - authenticate user login
+// @access- PUBLIC
+router.post("/login", async (req, res) => {
+  try {
+    const user = await User.query()
+      .select("*")
+      .where("email", "=", req.body.email);
+    if (
+      !req.body.email ||
+      !req.body.password ||
+      user.length === 0 ||
+      user[0].password !== req.body.password
+    ) {
+      return res.json({ msg: "ERROR" });
+    } else {
+      const accessToken = jwt.sign({ id: user[0].id }, "secret", {
+        expiresIn: "1d",
+      });
+      // const {password, ...others} = user
+      const authStatus = {
+        login: "success",
+      };
+      const { password, ...others } = user[0];
+      return res.status(200).json({ accessToken, authStatus, ...others });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  // console.log(req.body);
+  // res.send("ok");
 });
 
 // @route - PUT /api/users
