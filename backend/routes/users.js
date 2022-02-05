@@ -25,8 +25,20 @@ router.post("/register", async (req, res) => {
       email: req.body.email,
       password: req.body.password,
       avatar: req.body.avatar,
+      username: req.body.username,
     });
-    res.status(201).json(newUser);
+    const addedUser = await User.query()
+      .select("*")
+      .where("email", "=", req.body.email);
+
+    const accessToken = jwt.sign({ id: addedUser[0].id }, "secret", {
+      expiresIn: "1d",
+    });
+    const { password, ...others } = addedUser[0];
+    const authStatus = {
+      login: "success",
+    };
+    return res.status(201).json({ accessToken, authStatus, ...others });
   } catch (error) {
     console.log(error);
   }
@@ -74,6 +86,7 @@ router.put("/:id", async (req, res) => {
       name: req.body.name,
       email: req.body.email,
       avatar: req.body.avatar,
+      username: req.body.username,
     });
     res.status(200).json(updatedUser);
   } catch (error) {

@@ -31,14 +31,10 @@
       <button
         class="focus:outlined-none flex items-center justify-between w-full"
       >
-        <img
-          class="h-10 w-10 rounded-full"
-          src="https://cdn-icons-png.flaticon.com/512/147/147144.png"
-          alt="avatar"
-        />
+        <img class="h-10 w-10 rounded-full" :src="avatar" alt="avatar" />
         <div class="hidden lg:block ml-2">
-          <p class="text-sm font-bold leading-tight">Mayank Sharma</p>
-          <p class="text-sm leading-tight">@mayank_m_sharma</p>
+          <p class="text-sm font-bold leading-tight">{{ name }}</p>
+          <p class="text-sm leading-tight">@{{ username }}</p>
         </div>
         <i class="hidden lg:block ml-2 fa-solid fa-ellipsis text-lg"></i>
       </button>
@@ -53,12 +49,12 @@
         >
           <img
             class="h-10 w-10 rounded-full"
-            src="https://cdn-icons-png.flaticon.com/512/147/147144.png"
+            v-bind:src="avatar"
             alt="avatar"
           />
           <div class="ml-2">
-            <p class="text-sm font-bold leading-tight">Mayank Sharma</p>
-            <p class="text-sm leading-tight">@mayank_m_sharma</p>
+            <p class="text-sm font-bold leading-tight">{{ name }}</p>
+            <p class="text-sm leading-tight">@{{ username }}</p>
           </div>
           <i class="ml-2 fa-solid fa-check text-blue"></i>
         </button>
@@ -72,7 +68,7 @@
           @click="logoutHandler"
           class="w-full text-left hover:bg-lightest border-t border-lighter p-3 text-sm"
         >
-          Log out @mayank_m_sharma
+          Log out @{{ username }}
         </button>
       </div>
     </div>
@@ -82,7 +78,7 @@
 <script>
 import Tabs from "./Tabs";
 // import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Sidebar",
   methods: {
@@ -94,6 +90,7 @@ export default {
   components: {
     Tabs,
   },
+  computed: mapGetters(["avatar", "name", "username"]),
   data() {
     return {
       tabs: [

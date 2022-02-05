@@ -3,11 +3,7 @@
     <!-- block one -->
     <div class="flex flex-row p-5 justify-start">
       <!-- avatar -->
-      <img
-        class="h-12 w-12 rounded-full"
-        src="https://cdn-icons-png.flaticon.com/512/147/147144.png"
-        alt="avatar"
-      />
+      <img class="h-12 w-12 rounded-full" :src="avatar" alt="avatar" />
       <!-- input -->
       <input
         class="ml-5 focus:outline-none w-full lg:text-2xl font-light"
@@ -61,8 +57,10 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "PostTweet",
+  computed: mapGetters(["username", "name", "avatar"]),
 };
 </script>
 

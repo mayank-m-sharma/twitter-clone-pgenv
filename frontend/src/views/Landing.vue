@@ -41,11 +41,13 @@
             <p>or</p>
           </div>
           <div class="pt-2">
-            <button
-              class="text-white bg-blue rounded-full font-semibold focus:outlined-none h-10 w-80 p-2 hover:bg-darkblue"
-            >
-              <p>Sign up with email</p>
-            </button>
+            <router-link to="/signup">
+              <button
+                class="text-white bg-blue rounded-full font-semibold focus:outlined-none h-10 w-80 p-2 hover:bg-darkblue"
+              >
+                <p>Sign up with email</p>
+              </button>
+            </router-link>
           </div>
         </div>
         <!-- Already have an account -->

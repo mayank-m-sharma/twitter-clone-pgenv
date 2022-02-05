@@ -16,7 +16,7 @@
         <!-- block 1 - | name username . time posted -->
         <div class="pb-1 flex flex-row w-1/2 content-center">
           <p class="font-bold mr-1">{{ tweet.name }}</p>
-          <p class="text-sm mr-2">{{ tweet.username }}</p>
+          <p class="text-sm mr-2">@{{ tweet.username }}</p>
           <img
             class="h-1 w-1 opacity-1 dot"
             src="../../assets/dot.png"
