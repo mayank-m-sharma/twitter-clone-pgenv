@@ -5,6 +5,7 @@ const state = {
   name: "",
   avatar: "",
   username: "",
+  user_id: "",
 };
 
 const getters = {
@@ -12,6 +13,7 @@ const getters = {
   name: (state) => state.name,
   avatar: (state) => state.avatar,
   username: (state) => state.username,
+  user_id: (state) => state.user_id,
 };
 
 const actions = {
@@ -26,6 +28,7 @@ const actions = {
       commit("setUsername", response.data.username);
       commit("setAvatar", response.data.avatar);
       commit("setIsLoggedIn", true);
+      commit("setUserId", response.data.id);
       router.push({ path: "/" });
     }
   },
@@ -51,6 +54,7 @@ const actions = {
       commit("setUsername", newUser.username);
       commit("setAvatar", newUser.avatar);
       commit("setIsLoggedIn", true);
+      commit("setUserId", newUser.id);
       router.push({ path: "/" });
     }
   },
@@ -61,6 +65,7 @@ const mutations = {
   setName: (state, name) => (state.name = name),
   setUsername: (state, username) => (state.username = username),
   setAvatar: (state, avatar) => (state.avatar = avatar),
+  setUserId: (state, user_id) => (state.user_id = user_id),
 };
 
 export default {

@@ -1,7 +1,8 @@
 <template>
   <div>
+    <Debug />
     <div
-      v-bind:key="tweet.id"
+      v-bind:key="tweet.created_at"
       v-for="tweet in allTweets"
       class="flex flex-row pt-5 pb-5 pl-8 pr-8 rounded-lg hover:bg-lightest transform transition duration-200 ease-out"
     >
@@ -12,7 +13,7 @@
         alt="avatar"
       />
       <!-- Block 2 -  -->
-      <div class="pl-5 flex flex-col justify-between">
+      <div class="pl-5 flex flex-col w-full justify-between">
         <!-- block 1 - | name username . time posted -->
         <div class="pb-1 flex flex-row w-1/2 content-center">
           <p class="font-bold mr-1">{{ tweet.name }}</p>
@@ -31,7 +32,8 @@
         <!-- block 3 - | Tweet media -->
         <div>
           <img
-            class="rounded-lg h-full w-full"
+            class="rounded-lg img h-full w-full"
+            v-if="tweet.tweet_media !== ``"
             v-bind:src="tweet.tweet_media"
             alt=""
           />
@@ -72,8 +74,12 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import Debug from "../Debug.vue";
 export default {
   name: "TweetSection",
+  components: {
+    Debug,
+  },
   methods: {
     ...mapActions(["fetchTweets"]),
   },

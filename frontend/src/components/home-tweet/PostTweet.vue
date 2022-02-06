@@ -1,66 +1,97 @@
 <template>
   <div class="flex flex-col pl-5 pr-5 pb-2">
     <!-- block one -->
-    <div class="flex flex-row p-5 justify-start">
-      <!-- avatar -->
-      <img class="h-12 w-12 rounded-full" :src="avatar" alt="avatar" />
-      <!-- input -->
-      <input
-        class="ml-5 focus:outline-none w-full lg:text-2xl font-light"
-        type="text"
-        placeholder="What's happening?"
-      />
-    </div>
-    <!-- block two -->
-    <div class="flex flex-row justify-between">
-      <!-- icons -->
-      <div class="flex flex-row lg:ml-20 items-center justify-between">
-        <img
-          class="cursor-pointer h-5 w-5 ml-4"
-          src="../../assets/media.png"
-          alt="avatar"
-        />
-        <img
-          class="cursor-pointer h-5 w-5 ml-4"
-          src="../../assets/gif.png"
-          alt="avatar"
-        />
-        <img
-          class="cursor-pointer h-5 w-5 ml-4 hidden lg:block"
-          src="../../assets/poll.png"
-          alt="avatar"
-        />
-        <img
-          class="cursor-pointer h-5 w-5 ml-4 hidden lg:block"
-          src="../../assets/emoji.png"
-          alt="avatar"
-        />
-        <img
-          class="cursor-pointer h-5 w-5 ml-4 hidden lg:block"
-          src="../../assets/schedule.png"
-          alt="clock"
-        />
-        <img
-          class="cursor-pointer h-5 w-5 ml-4 hidden lg:block"
-          src="../../assets/location.png"
-          alt="clock"
+    <form @submit="submitHandler">
+      <div class="flex flex-row p-5 justify-start">
+        <!-- avatar -->
+        <img class="h-12 w-12 rounded-full" :src="avatar" alt="avatar" />
+        <!-- input -->
+        <input
+          class="ml-5 focus:outline-none w-full lg:text-2xl font-light"
+          type="text"
+          v-model="body"
+          placeholder="What's happening?"
         />
       </div>
-      <!-- tweet button -->
-      <button
-        class="rounded-full text-sm bg-blue font-bold text-white p-2 w-20 h-auto"
-      >
-        Tweet
-      </button>
-    </div>
+      <!-- block two -->
+      <div class="flex flex-row justify-between">
+        <!-- icons -->
+        <div class="flex flex-row lg:ml-20 p-2 items-center justify-between">
+          <img
+            class="cursor-pointer h-5 w-5 ml-4"
+            src="../../assets/media.png"
+            alt="avatar"
+          />
+          <img
+            class="cursor-pointer h-5 w-5 ml-4"
+            src="../../assets/gif.png"
+            alt="avatar"
+          />
+          <img
+            class="cursor-pointer h-5 w-5 ml-4 hidden lg:block"
+            src="../../assets/poll.png"
+            alt="avatar"
+          />
+          <img
+            class="cursor-pointer h-5 w-5 ml-4 hidden lg:block"
+            src="../../assets/emoji.png"
+            alt="avatar"
+          />
+          <img
+            class="cursor-pointer h-5 w-5 ml-4 hidden lg:block"
+            src="../../assets/schedule.png"
+            alt="clock"
+          />
+          <img
+            class="cursor-pointer h-5 w-5 ml-4 hidden lg:block"
+            src="../../assets/location.png"
+            alt="clock"
+          />
+        </div>
+        <!-- tweet button -->
+        <button
+          class="rounded-full text-sm bg-blue font-bold text-white p-2 w-20 h-auto"
+          v-if="body !== ``"
+        >
+          Tweet
+        </button>
+      </div>
+    </form>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "PostTweet",
-  computed: mapGetters(["username", "name", "avatar"]),
+  data() {
+    return {
+      body: "",
+      tweet_media: "",
+    };
+  },
+  methods: {
+    ...mapActions(["createTweet"]),
+    submitHandler(e) {
+      e.preventDefault();
+      const newTweet = {
+        body: this.body,
+        tweet_media: this.tweet_media,
+        reply_count: 0,
+        hearts_count: 0,
+        retweet_count: 0,
+        created_at: Date.now().toString(),
+        updated_at: "",
+        user_id: this.user_id.toString(),
+        avatar: this.avatar,
+        name: this.name,
+        username: this.username,
+      };
+      this.createTweet(newTweet);
+      this.body = "";
+    },
+  },
+  computed: mapGetters(["username", "name", "avatar", "user_id"]),
 };
 </script>
 
