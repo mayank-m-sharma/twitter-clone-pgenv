@@ -2,6 +2,33 @@ const Tweet = require("../models/Tweet");
 const { passwordColumn } = require("../models/User");
 const User = require("../models/User");
 const router = require("express").Router();
+const multer = require("multer");
+
+// Multer setup -
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
+// Multer file accept strategy
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/jpeg" ||
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/gif" ||
+    file.mimetype === "video/mp4"
+  ) {
+    cb(null, true);
+  } else {
+    cb("Unsupported file type", false);
+  }
+};
+
+const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 // @route - GET /api/tweets
 // @desc  - get all tweets
@@ -38,7 +65,7 @@ router.get("/:user_id", async (req, res) => {
 // @route - POST /api/tweets
 // @desc  - create new user
 // @access- PUBLIC
-router.post("/", async (req, res) => {
+router.post("/", upload.single("media"), async (req, res) => {
   try {
     const newTweet = await Tweet.query().insert({
       body: req.body.body,
@@ -49,6 +76,7 @@ router.post("/", async (req, res) => {
       retweet_count: req.body.retweet_count,
       created_at: req.body.created_at,
       updated_at: req.body.updated_at,
+      media: !req.file ? "NOIMG" : req.file.path,
     });
     res.status(201).json({ newTweet, msg: "tweetcreated" });
   } catch (error) {

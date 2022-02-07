@@ -11,6 +11,8 @@ app.use(
     origin: "*",
   })
 );
+// serve static files -
+app.use("/uploads", express.static("uploads"));
 // routes config -
 app.use("/api/users", require("./routes/users"));
 app.use("/api/tweets", require("./routes/tweets"));

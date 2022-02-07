@@ -17,7 +17,7 @@
         <!-- block 1 - | name username . time posted -->
         <div class="pb-1 flex flex-row w-1/2 content-center">
           <p class="font-bold mr-1">{{ tweet.name }}</p>
-          <p class="text-sm mr-2">@{{ tweet.username }}</p>
+          <p class="text-sm username mr-2">@{{ tweet.username }}</p>
           <img
             class="h-1 w-1 opacity-1 dot"
             src="../../assets/dot.png"
@@ -33,8 +33,8 @@
         <div>
           <img
             class="rounded-lg img h-full w-full"
-            v-if="tweet.tweet_media !== ``"
-            v-bind:src="tweet.tweet_media"
+            v-if="tweet.media !== `NOIMG`"
+            :src="`http://localhost:8800/${tweet.media}`"
             alt=""
           />
         </div>
@@ -77,6 +77,7 @@ import { mapActions, mapGetters } from "vuex";
 import Debug from "../Debug.vue";
 export default {
   name: "TweetSection",
+
   components: {
     Debug,
   },
@@ -96,6 +97,9 @@ export default {
   opacity: 0.5;
 }
 .hours {
+  margin-top: 2px;
+}
+.username {
   margin-top: 2px;
 }
 </style>

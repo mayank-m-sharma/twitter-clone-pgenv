@@ -17,16 +17,28 @@
       <div class="flex flex-row justify-between">
         <!-- icons -->
         <div class="flex flex-row lg:ml-20 p-2 items-center justify-between">
-          <img
-            class="cursor-pointer h-5 w-5 ml-4"
-            src="../../assets/media.png"
-            alt="avatar"
-          />
-          <img
-            class="cursor-pointer h-5 w-5 ml-4"
-            src="../../assets/gif.png"
-            alt="avatar"
-          />
+          <div>
+            <label for="media">
+              <img
+                class="cursor-pointer h-5 w-5 ml-4"
+                src="../../assets/media.png"
+                alt="avatar"
+              />
+            </label>
+            <input
+              type="file"
+              id="media"
+              class="hidden"
+              v-on:change="addMediaHandler"
+            />
+          </div>
+          <label for="media">
+            <img
+              class="cursor-pointer h-5 w-5 ml-4"
+              src="../../assets/gif.png"
+              alt="avatar"
+            />
+          </label>
           <img
             class="cursor-pointer h-5 w-5 ml-4 hidden lg:block"
             src="../../assets/poll.png"
@@ -68,10 +80,16 @@ export default {
     return {
       body: "",
       tweet_media: "",
+      media: {},
+      path: "",
+      formData: {},
     };
   },
   methods: {
     ...mapActions(["createTweet"]),
+    addMediaHandler(e) {
+      this.media = e.target.files[0];
+    },
     submitHandler(e) {
       e.preventDefault();
       const newTweet = {
@@ -86,6 +104,7 @@ export default {
         avatar: this.avatar,
         name: this.name,
         username: this.username,
+        uploads: this.media,
       };
       this.createTweet(newTweet);
       this.body = "";

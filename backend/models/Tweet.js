@@ -20,6 +20,9 @@ class Tweet extends Model {
   static get tweetMediaColumn() {
     return "tweet_media";
   }
+  static get mediaColumn() {
+    return "media";
+  }
   static get replyCountColumn() {
     return "reply_count";
   }
@@ -45,11 +48,11 @@ class Tweet extends Model {
         body: { type: "string", minLength: 1, maxLength: 255 },
         tweet_media: { type: "string" },
         user_id: { type: "string" },
-        reply_count: { type: "integer" },
-        retweet_count: { type: "integer" },
-        hearts_count: { type: "integer" },
-        created_at: { type: "string" },
-        updated_at: { type: "string" },
+        // reply_count: { type: "integer" },
+        // retweet_count: { type: "integer" },
+        // hearts_count: { type: "integer" },
+        // created_at: { type: "string" },
+        // updated_at: { type: "string" },
       },
     };
   }
