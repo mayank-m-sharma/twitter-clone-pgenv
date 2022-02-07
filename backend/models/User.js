@@ -1,5 +1,6 @@
 const { Model } = require("objection");
 const Tweet = require("./Tweet");
+const Following = require("./Following");
 class User extends Model {
   static get tableName() {
     return "users";
@@ -41,6 +42,14 @@ class User extends Model {
       join: {
         from: "users.id",
         to: "tweets.user_id",
+      },
+    },
+    following: {
+      relation: Model.HasManyRelation,
+      modelClass: Following,
+      join: {
+        from: "users.id",
+        to: "following.users.id",
       },
     },
   };

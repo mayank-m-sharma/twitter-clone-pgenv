@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-
+const Following = require("../models/Following");
+const verifyToken = require("../middleware/verifyJwt");
 // @route - GET /api/users
 // @desc  - get all users
 // @access- PUBLIC
@@ -91,6 +92,47 @@ router.put("/:id", async (req, res) => {
     res.status(200).json(updatedUser);
   } catch (error) {
     console.log(error);
+  }
+});
+
+// @route - POST /api/users/follow/:follow_user_id
+// @desc  - Follow a user
+// @access- PRIVATE
+router.post("/follow/:following_user_id", verifyToken, async (req, res) => {
+  try {
+    // Reject if already following -
+    const alreadyFollowing = await Following.query()
+      .select("*")
+      .where("user_id", "=", req.user.id)
+      .where("following_user_id", "=", req.params.following_user_id);
+    if (alreadyFollowing.length === 0) {
+      const followUser = await Following.query().insert({
+        user_id: req.user.id,
+        following_user_id: req.params.following_user_id,
+      });
+      res.status(200).json({ followUser, msg: "following successfull" });
+    } else {
+      res.status(401).json({ msg: "cannot follow a user more than once" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(401).json({ msg: "following error" });
+  }
+});
+
+// @route - POST /api/users/unfollow/:follow_user_id
+// @desc  - Unfollow a user
+// @access- PRIVATE
+router.post("/unfollow/:following_user_id", verifyToken, async (req, res) => {
+  try {
+    const unfollowUser = await Following.query()
+      .delete()
+      .where("user_id", "=", req.user.id)
+      .where("following_user_id", "=", req.params.following_user_id);
+    res.status(200).json({ unfollowUser, msg: "unfollowing successfull" });
+  } catch (error) {
+    console.log(error);
+    res.status(401).json({ msg: "unfollowing error" });
   }
 });
 
