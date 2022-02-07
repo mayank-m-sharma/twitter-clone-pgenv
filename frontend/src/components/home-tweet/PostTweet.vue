@@ -5,13 +5,25 @@
       <div class="flex flex-row p-5 justify-start">
         <!-- avatar -->
         <img class="h-12 w-12 rounded-full" :src="avatar" alt="avatar" />
-        <!-- input -->
-        <input
-          class="ml-5 focus:outline-none w-full lg:text-2xl font-light"
-          type="text"
-          v-model="body"
-          placeholder="What's happening?"
-        />
+        <div>
+          <!-- input -->
+          <input
+            class="ml-5 focus:outline-none w-full lg:text-2xl font-light"
+            type="text"
+            v-model="body"
+            placeholder="What's happening?"
+          />
+          <!-- Preview -->
+          <div class="relative mt-2" v-if="preview !== ``">
+            <img class="h-300 w-300 rounded-lg" :src="preview" alt="" />
+            <p
+              @click="removeMedia"
+              class="absolute cursor-pointer top-0 text-xl right-0 mr-4"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </p>
+          </div>
+        </div>
       </div>
       <!-- block two -->
       <div class="flex flex-row justify-between">
@@ -55,7 +67,7 @@
             alt="clock"
           />
           <img
-            class="cursor-pointer h-5 w-5 ml-4 hidden lg:block"
+            class="cursor-pointer opacity-70 h-5 w-5 ml-4 hidden lg:block"
             src="../../assets/location.png"
             alt="clock"
           />
@@ -63,7 +75,7 @@
         <!-- tweet button -->
         <button
           class="rounded-full text-sm bg-blue font-bold text-white p-2 w-20 h-auto"
-          v-if="body !== ``"
+          :class="{ btnDisabled: this.body === `` }"
         >
           Tweet
         </button>
@@ -83,12 +95,16 @@ export default {
       media: {},
       path: "",
       formData: {},
+      btnDisabled: true,
+      preview: "",
     };
   },
   methods: {
     ...mapActions(["createTweet"]),
     addMediaHandler(e) {
       this.media = e.target.files[0];
+      const url = URL.createObjectURL(this.media);
+      this.preview = url;
     },
     submitHandler(e) {
       e.preventDefault();
@@ -108,6 +124,11 @@ export default {
       };
       this.createTweet(newTweet);
       this.body = "";
+      this.preview = "";
+    },
+    removeMedia() {
+      this.preview = "";
+      this.media = {};
     },
   },
   computed: mapGetters(["username", "name", "avatar", "user_id"]),
@@ -139,6 +160,10 @@ export default {
     font-size: 1.3rem;
     color: black;
     font-weight: 200;
+  }
+  .btnDisabled {
+    cursor: not-allowed;
+    opacity: 0.7;
   }
 }
 </style>

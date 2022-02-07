@@ -45,9 +45,9 @@ class Tweet extends Model {
       required: ["body", "user_id"],
       properties: {
         id: { type: "integer" },
-        body: { type: "string", minLength: 1, maxLength: 255 },
-        tweet_media: { type: "string" },
-        user_id: { type: "string" },
+        body: { type: "string", maxLength: 255 },
+        // tweet_media: { type: "string" },
+        // user_id: { type: "string" },
         // reply_count: { type: "integer" },
         // retweet_count: { type: "integer" },
         // hearts_count: { type: "integer" },
