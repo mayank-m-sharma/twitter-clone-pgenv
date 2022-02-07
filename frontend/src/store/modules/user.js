@@ -36,16 +36,18 @@ const actions = {
     commit("setIsLoggedIn", false);
   },
   async registerUser({ commit }, { name, username, avatar, email, password }) {
-    const response = await axios.post(
-      "http://localhost:8800/api/users/register",
-      {
-        name,
-        email,
-        username,
-        password,
-        avatar,
-      }
-    );
+    const formData = new FormData();
+    formData.append("avatar", avatar);
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("name", name);
+    const response = await axios({
+      method: "post",
+      url: "http://localhost:8800/api/users/register",
+      data: formData,
+      config: { headers: { "Content-Type": "multipart/form-data" } },
+    });
     const loginStatus = response.data.authStatus.login;
     const newUser = response.data;
     console.log(response.data);

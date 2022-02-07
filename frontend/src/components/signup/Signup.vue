@@ -47,14 +47,28 @@
             </div>
             <!-- RIGHT -->
             <div class="lg:w-1/2 flex flex-col items-center mt-10">
-              <img class="h-32 w-32 rounded-full" :src="avatar" alt="" />
-
+              <div
+                class="relative uplpoadMedia"
+                @mouseover="showCaption = true"
+                @mouseleave="showCaption = false"
+              >
+                <label class="cursor-pointer" for="media"
+                  ><img class="h-32 w-32 rounded-full" :src="avatar" alt=""
+                /></label>
+                <div
+                  v-if="showCaption"
+                  class="bg-grey text-white rounded-lg p-1 left-6 absolute bottom-0"
+                >
+                  <p class="text-xs">Upload New</p>
+                </div>
+              </div>
               <div>
                 <input
-                  type="text"
+                  type="file"
                   placeholder="Profile Image URL"
-                  v-model="avatar"
-                  class="border-2 mt-2 rounded-md inp mb-3"
+                  @change="avatarChange"
+                  id="media"
+                  class="border-2 mt-2 hidden rounded-md inp mb-3"
                 />
               </div>
             </div>
@@ -91,19 +105,26 @@ export default {
       password: "",
       username: "",
       name: "",
+      showCaption: false,
+      media: {},
       avatar:
         "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg",
     };
   },
 
   methods: {
+    avatarChange(e) {
+      this.media = e.target.files[0];
+      const url = URL.createObjectURL(this.media);
+      this.avatar = url;
+    },
     signupHandler(e) {
       e.preventDefault();
       const userDetails = {
         email: this.email,
         password: this.password,
         username: this.username,
-        avatar: this.avatar,
+        avatar: this.media,
         name: this.name,
       };
       this.registerUser(userDetails);
@@ -112,3 +133,5 @@ export default {
   },
 };
 </script>
+
+<style scoped></style>

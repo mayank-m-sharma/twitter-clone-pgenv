@@ -4,7 +4,11 @@
     <form @submit="submitHandler">
       <div class="flex flex-row p-5 justify-start">
         <!-- avatar -->
-        <img class="h-12 w-12 rounded-full" :src="avatar" alt="avatar" />
+        <img
+          class="h-12 w-12 rounded-full"
+          :src="`http://localhost:8800/${avatar}`"
+          alt="avatar"
+        />
         <div>
           <!-- input -->
           <input

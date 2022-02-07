@@ -31,7 +31,11 @@
       <button
         class="focus:outlined-none flex items-center justify-between w-full"
       >
-        <img class="h-10 w-10 rounded-full" :src="avatar" alt="avatar" />
+        <img
+          class="h-10 w-10 rounded-full"
+          :src="`http://localhost:8800/${avatar}`"
+          alt="avatar"
+        />
         <div class="hidden lg:block ml-2">
           <p class="text-sm font-bold leading-tight">{{ name }}</p>
           <p class="text-sm leading-tight">@{{ username }}</p>
@@ -49,7 +53,7 @@
         >
           <img
             class="h-10 w-10 rounded-full"
-            v-bind:src="avatar"
+            v-bind:src="`http://localhost:8800/${avatar}`"
             alt="avatar"
           />
           <div class="ml-2">

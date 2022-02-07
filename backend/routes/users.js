@@ -3,6 +3,33 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const Following = require("../models/Following");
 const verifyToken = require("../middleware/verifyJwt");
+const multer = require("multer");
+
+// Multer setup -
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
+// Multer file accept strategy
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/jpeg" ||
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/gif" ||
+    file.mimetype === "video/mp4"
+  ) {
+    cb(null, true);
+  } else {
+    cb("Unsupported file type", false);
+  }
+};
+
+const upload = multer({ storage: storage, fileFilter: fileFilter });
 // @route - GET /api/users
 // @desc  - get all users
 // @access- PUBLIC
@@ -19,13 +46,13 @@ router.get("/", async (req, res) => {
 // @route - POST /api/users/register
 // @desc  - create new user
 // @access- PUBLIC
-router.post("/register", async (req, res) => {
+router.post("/register", upload.single("avatar"), async (req, res) => {
   try {
     const newUser = await User.query().insert({
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
-      avatar: req.body.avatar,
+      avatar: !req.file ? "uploads/defaultavatar.jpeg" : req.file.path,
       username: req.body.username,
     });
     const addedUser = await User.query()

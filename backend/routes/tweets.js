@@ -1,5 +1,4 @@
 const Tweet = require("../models/Tweet");
-const { passwordColumn } = require("../models/User");
 const User = require("../models/User");
 const router = require("express").Router();
 const multer = require("multer");

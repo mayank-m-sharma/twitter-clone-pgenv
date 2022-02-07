@@ -9,7 +9,7 @@
       <!-- Block 1 - Top left avatar Img -->
       <img
         class="h-10 w-10 rounded-full"
-        v-bind:src="tweet.avatar"
+        v-bind:src="`http://localhost:8800/${tweet.avatar}`"
         alt="avatar"
       />
       <!-- Block 2 -  -->
