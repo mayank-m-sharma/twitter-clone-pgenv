@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col pl-5 pr-5 pb-2">
+  <div class="flex flex-col p-5 border-b-2 border-lightest shadow-xs">
     <!-- block one -->
     <form @submit="submitHandler">
-      <div class="flex flex-row p-5 justify-start">
+      <div class="flex flex-row pt-5 justify-start">
         <!-- avatar -->
         <img
           class="h-12 w-12 rounded-full"
@@ -32,7 +32,7 @@
       <!-- block two -->
       <div class="flex flex-row justify-between">
         <!-- icons -->
-        <div class="flex flex-row lg:ml-20 p-2 items-center justify-between">
+        <div class="flex flex-row lg:ml-10 p-2 items-center justify-between">
           <div>
             <label for="media">
               <img
@@ -144,26 +144,26 @@ export default {
   ::-webkit-input-placeholder {
     /* Chrome/Opera/Safari */
     font-size: 1.3rem;
-    color: black;
-    font-weight: 200;
+    color: rgb(85, 101, 123);
+    font-weight: 350;
   }
   ::-moz-placeholder {
     /* Firefox 19+ */
     font-size: 1.3rem;
-    color: black;
-    font-weight: 200;
+    color: rgb(85, 101, 123);
+    font-weight: 350;
   }
   :-ms-input-placeholder {
     /* IE 10+ */
     font-size: 1.3rem;
-    color: black;
-    font-weight: 200;
+    color: rgb(85, 101, 123);
+    font-weight: 350;
   }
   :-moz-placeholder {
     /* Firefox 18- */
     font-size: 1.3rem;
-    color: black;
-    font-weight: 200;
+    color: rgb(85, 101, 123);
+    font-weight: 500;
   }
   .btnDisabled {
     cursor: not-allowed;

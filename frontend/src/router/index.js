@@ -3,8 +3,12 @@ import VueRouter from "vue-router";
 import Landing from "../views/Landing.vue";
 import Login from "../components/Login.vue";
 import Signup from "../components/signup/Signup.vue";
+import Profile from "../components/profile/ProfileLanding.vue";
+import store from "../store/index";
 Vue.use(VueRouter);
 
+const isLoggedIn = store.getters["user/isLoggedIn"];
+console.log(isLoggedIn);
 const routes = [
   {
     path: "/",
@@ -20,6 +24,11 @@ const routes = [
     path: "/signup",
     name: "Signup",
     component: Signup,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
   },
   {
     path: "/about",

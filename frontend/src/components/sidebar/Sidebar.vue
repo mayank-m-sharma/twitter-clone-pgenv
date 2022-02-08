@@ -1,44 +1,52 @@
 <template>
   <div
-    class="transform transition duration-200 ease-out flex flex-col justify-between lg:w-1/5 border-r border-lighter lg:px-6 px-2 py-2"
+    class="transform transition duration-200 ease-out flex flex-col justify-between lg:w-96 border-r border-lighter lg:px-2 px-2 py-2"
   >
     <!-- Upper section | Tabs & Tweet Button div -->
     <div @click="dropdown = false">
       <button
-        class="transform transition duration-200 ease-out h-12 w-12 hover:bg-lightblue text-3xl text-blue"
+        class="transform transition ml-16 duration-200 ease-out h-12 w-12 hover:bg-lightblue text-3xl text-blue"
       >
         <i class="fab fa-twitter"></i>
       </button>
       <!-- Tabs with icons -->
-      <Tabs v-bind:tabs="tabs" />
+      <div class="ml-10">
+        <Tabs v-bind:tabs="tabs" />
+      </div>
       <!-- Tweet button -->
-      <button
-        class="text-white bg-blue rounded-full font-semibold focus:outlined-none w-12 h-12 lg:h-auto lg:w-full p-3 hover:bg-darkblue"
-      >
-        <p class="transform transition duration-200 ease-out hidden lg:block">
-          Tweet
-        </p>
-        <i
-          class="transform transition duration-200 ease-out lg:hidden fa-solid fa-plus"
-        ></i>
-      </button>
+      <router-link to="/">
+        <div class="pl-10 pr-10">
+          <button
+            class="text-white bg-blue rounded-full font-semibold focus:outlined-none w-12 h-12 lg:h-auto lg:w-full p-3 hover:bg-darkblue"
+          >
+            <p
+              class="transform transition duration-200 ease-out hidden lg:block"
+            >
+              Tweet
+            </p>
+            <i
+              class="transform transition duration-200 ease-out lg:hidden fa-solid fa-plus"
+            ></i>
+          </button>
+        </div>
+      </router-link>
     </div>
     <!-- Lower Section | Dropdown -->
     <div
       @click="dropdown = true"
-      class="transform transition duration-200 ease-out relative lg:w-full mb-3 hover:bg-lightblue rounded-full"
+      class="ml-10 transform transition duration-200 ease-out relative lg:w-full mb-3 hover:bg-lightblue rounded-full"
     >
-      <button
-        class="focus:outlined-none flex items-center justify-between w-full"
-      >
-        <img
-          class="h-10 w-10 rounded-full"
-          :src="`http://localhost:8800/${avatar}`"
-          alt="avatar"
-        />
-        <div class="hidden lg:block ml-2">
-          <p class="text-sm font-bold leading-tight">{{ name }}</p>
-          <p class="text-sm leading-tight">@{{ username }}</p>
+      <button class="focus:outlined-none flex w-full">
+        <div class="flex flex-row items-center">
+          <img
+            class="h-10 w-10 rounded-full"
+            :src="`http://localhost:8800/${avatar}`"
+            alt="avatar"
+          />
+          <div class="hidden lg:block ml-4 mr-8">
+            <p class="text-sm font-bold leading-tight">{{ name }}</p>
+            <p class="text-sm leading-tight">@{{ username }}</p>
+          </div>
         </div>
         <i class="hidden lg:block ml-2 fa-solid fa-ellipsis text-lg"></i>
       </button>
@@ -98,13 +106,38 @@ export default {
   data() {
     return {
       tabs: [
-        { icon: "fas fa-home", title: "Home", id: "home" },
-        { icon: "fas fa-hashtag", title: "Explore", id: "explore" },
-        { icon: "far fa-bell", title: "Notifications", id: "notifications" },
-        { icon: "far fa-envelope", title: "Messages", id: "messages" },
-        { icon: "far fa-bookmark", title: "Bookmarks", id: "bookmarks" },
-        { icon: "fas fa-clipboard-list", title: "Lists", id: "lists" },
-        { icon: "far fa-user", title: "Profile", id: "profile" },
+        { icon: "fas fa-home", title: "Home", id: "home", link: "/" },
+        { icon: "fas fa-hashtag", title: "Explore", id: "explore", link: "#" },
+        {
+          icon: "far fa-bell",
+          title: "Notifications",
+          id: "notifications",
+          link: "#",
+        },
+        {
+          icon: "far fa-envelope",
+          title: "Messages",
+          id: "messages",
+          link: "#",
+        },
+        {
+          icon: "far fa-bookmark",
+          title: "Bookmarks",
+          id: "bookmarks",
+          link: "#",
+        },
+        {
+          icon: "fas fa-clipboard-list",
+          title: "Lists",
+          id: "lists",
+          link: "#",
+        },
+        {
+          icon: "far fa-user",
+          title: "Profile",
+          id: "profile",
+          link: "/profile",
+        },
         { icon: "fas fa-ellipsis-h", title: "More", id: "more" },
       ],
       dropdown: false,

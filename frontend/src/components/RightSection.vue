@@ -1,7 +1,7 @@
 <template>
   <!-- Right section | Search Twitter | What's Happening -->
   <div
-    class="hidden lg:block w-1/3 mt-3 border-l border-lighter h-full py-2 px-6 overflow-y-scroll relative"
+    class="hidden lg:block w-1/3 border-l border-lighter h-full py-2 px-6 overflow-y-scroll relative"
   >
     <div class="mb-5">
       <input

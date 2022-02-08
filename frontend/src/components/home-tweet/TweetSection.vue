@@ -1,10 +1,9 @@
 <template>
   <div>
-    <Debug />
     <div
       v-bind:key="tweet.created_at"
       v-for="tweet in allTweets"
-      class="flex flex-row pt-5 pb-5 pl-8 pr-8 rounded-lg hover:bg-lightest transform transition duration-200 ease-out"
+      class="flex flex-row pt-5 pb-5 pl-5 pr-5 rounded-lg hover:bg-lightest transform transition duration-200 ease-out"
     >
       <!-- Block 1 - Top left avatar Img -->
       <img
@@ -32,7 +31,7 @@
         <!-- block 3 - | Tweet media -->
         <div>
           <img
-            class="rounded-lg img h-full w-full"
+            class="rounded-2xl img h-full w-full"
             v-if="tweet.media !== `NOIMG`"
             :src="`http://localhost:8800/${tweet.media}`"
             alt=""
@@ -74,18 +73,17 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import Debug from "../Debug.vue";
+
 export default {
   name: "TweetSection",
+  props: ["usernameProps"],
 
-  components: {
-    Debug,
-  },
   methods: {
     ...mapActions(["fetchTweets"]),
   },
   computed: mapGetters(["allTweets"]),
   created() {
+    console.log(this.usernameProps);
     this.fetchTweets();
   },
 };
