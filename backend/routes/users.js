@@ -2,6 +2,7 @@ const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const Following = require("../models/Following");
+const Tweet = require("../models/Tweet");
 const verifyToken = require("../middleware/verifyJwt");
 const multer = require("multer");
 
@@ -160,6 +161,32 @@ router.post("/unfollow/:following_user_id", verifyToken, async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(401).json({ msg: "unfollowing error" });
+  }
+});
+
+// @route - GET /api/users/:username
+// @desc  - Get a single user
+// @access- Public
+router.get("/:username", async (req, res) => {
+  try {
+    const user = await User.query()
+      .select("users.*")
+      .where("username", "=", req.params.username);
+    // console.log(user);
+    const tweets = await Tweet.query()
+      .select("*")
+      .where("user_id", "=", user[0].id);
+    const following = await Following.query().where("user_id", "=", user[0].id);
+    const followers = await Following.query().where(
+      "following_user_id",
+      "=",
+      user[0].id
+    );
+    // console.log(tweets);
+    res.json({ user, tweets, following, followers });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ msg: "error" });
   }
 });
 
