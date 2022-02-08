@@ -83,7 +83,6 @@ export default {
   },
   computed: mapGetters(["allTweets"]),
   created() {
-    console.log(this.usernameProps);
     this.fetchTweets();
   },
 };

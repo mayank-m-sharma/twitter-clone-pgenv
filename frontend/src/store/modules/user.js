@@ -6,6 +6,10 @@ const state = {
   avatar: "",
   username: "",
   user_id: "",
+  userProfileInfo: {},
+  userTweets: [],
+  userFollowing: [],
+  userFollower: [],
 };
 
 const getters = {
@@ -14,6 +18,10 @@ const getters = {
   avatar: (state) => state.avatar,
   username: (state) => state.username,
   user_id: (state) => state.user_id,
+  userProfileInfo: (state) => state.userProfile,
+  userTweets: (state) => state.userTweets,
+  userFollowing: (state) => state.userFollowing,
+  userFollower: (state) => state.userFollower,
 };
 
 const actions = {
@@ -60,6 +68,16 @@ const actions = {
       router.push({ path: "/" });
     }
   },
+  async getUserProfile({ commit }, data) {
+    const response = await axios({
+      method: "GET",
+      url: `http://localhost:8800/api/users/${data}`,
+    });
+    commit("setUserProfileInfo", response.data.user);
+    commit("setUserTweets", response.data.tweets);
+    commit("setUserFollower", response.data.followers);
+    commit("setUserFollowing", response.data.following);
+  },
 };
 
 const mutations = {
@@ -68,6 +86,10 @@ const mutations = {
   setUsername: (state, username) => (state.username = username),
   setAvatar: (state, avatar) => (state.avatar = avatar),
   setUserId: (state, user_id) => (state.user_id = user_id),
+  setUserProfileInfo: (state, data) => (state.userProfile = data),
+  setUserTweets: (state, data) => (state.userTweets = data),
+  setUserFollowing: (state, data) => (state.userFollowing = data),
+  setUserFollower: (state, data) => (state.userFollower = data),
 };
 
 export default {

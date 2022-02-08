@@ -4,11 +4,9 @@ import Landing from "../views/Landing.vue";
 import Login from "../components/Login.vue";
 import Signup from "../components/signup/Signup.vue";
 import Profile from "../components/profile/ProfileLanding.vue";
-import store from "../store/index";
+
 Vue.use(VueRouter);
 
-const isLoggedIn = store.getters["user/isLoggedIn"];
-console.log(isLoggedIn);
 const routes = [
   {
     path: "/",
@@ -26,7 +24,7 @@ const routes = [
     component: Signup,
   },
   {
-    path: "/profile",
+    path: "/profile/:username",
     name: "Profile",
     component: Profile,
   },

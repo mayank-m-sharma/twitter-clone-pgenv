@@ -93,6 +93,7 @@ import Tabs from "./Tabs";
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Sidebar",
+  props: ["usernameProp"],
   methods: {
     ...mapActions(["logoutUser"]),
     logoutHandler() {
@@ -102,41 +103,49 @@ export default {
   components: {
     Tabs,
   },
-  computed: mapGetters(["avatar", "name", "username"]),
+  computed: {
+    ...mapGetters(["username", "avatar", "name"]),
+  },
   data() {
     return {
+      username1: "",
       tabs: [
         { icon: "fas fa-home", title: "Home", id: "home", link: "/" },
-        { icon: "fas fa-hashtag", title: "Explore", id: "explore", link: "#" },
+        {
+          icon: "fas fa-hashtag",
+          title: "Explore",
+          id: "explore",
+          link: "/explore",
+        },
         {
           icon: "far fa-bell",
           title: "Notifications",
           id: "notifications",
-          link: "#",
+          link: "/notifications",
         },
         {
           icon: "far fa-envelope",
           title: "Messages",
           id: "messages",
-          link: "#",
+          link: "/messages",
         },
         {
           icon: "far fa-bookmark",
           title: "Bookmarks",
           id: "bookmarks",
-          link: "#",
+          link: "/bookmarks",
         },
         {
           icon: "fas fa-clipboard-list",
           title: "Lists",
           id: "lists",
-          link: "#",
+          link: "/lists",
         },
         {
           icon: "far fa-user",
           title: "Profile",
           id: "profile",
-          link: "/profile",
+          link: `/profile/${this.usernameProp}`,
         },
         { icon: "fas fa-ellipsis-h", title: "More", id: "more" },
       ],

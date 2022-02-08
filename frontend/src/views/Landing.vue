@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="isLoggedIn" class="flex pl-5 pr-5 h-screen w-full">
-      <Sidebar />
+      <Sidebar :usernameProp="username" />
       <Home />
       <RightSection />
     </div>
@@ -82,7 +82,7 @@ export default {
     Home,
     RightSection,
   },
-  computed: mapGetters(["isLoggedIn"]),
+  computed: mapGetters(["isLoggedIn", "username"]),
 };
 </script>
 
