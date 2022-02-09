@@ -1,6 +1,6 @@
 <template>
-  <div class="flex pl-5 pr-5 h-screen w-full">
-    <Sidebar />
+  <div class="flex pl-5 pr-5 h-screen lg:w-full">
+    <Sidebar :usernameProp="username" />
     <Profile />
     <RightSection />
   </div>
@@ -10,8 +10,10 @@
 import Sidebar from "../sidebar/Sidebar.vue";
 import RightSection from "../RightSection.vue";
 import Profile from "./Profile.vue";
+import { mapGetters } from "vuex";
 export default {
   name: "ProfileLanding",
+  computed: mapGetters(["username"]),
   components: {
     Sidebar,
     Profile,

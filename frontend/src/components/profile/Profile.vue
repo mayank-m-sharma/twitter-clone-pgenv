@@ -29,12 +29,21 @@
         >
           Set up profile
         </button>
-        <button
-          class="absolute mt-3 right-0 mr-2 btn rounded-full text-sm bg-white font-bold text-black p-2 w-32 h-auto"
-          v-else
-        >
-          Different User
-        </button>
+        <div v-else>
+          <button
+            @click="followUserHandler"
+            v-if="!loggedInUserFollowsProfileUser"
+            class="absolute mt-3 right-0 mr-2 btn rounded-full text-sm bg-black font-bold text-white p-2 w-32 h-auto"
+          >
+            Follow
+          </button>
+          <button
+            v-else
+            class="absolute mt-3 right-0 mr-2 btn rounded-full text-sm bg-white font-bold text-black p-2 w-32 h-auto"
+          >
+            Following
+          </button>
+        </div>
       </div>
       <!-- Name username date joined -->
       <div class="flex w-full lg:w-1/2 flex-col mt-16 ml-5">
@@ -50,13 +59,13 @@
             Joined January 2022
           </p>
           <div class="mt-2 text-sm flex flex-row justify-between">
-            <h1 class="text-grey">
+            <h1 class="text-grey hover:underline cursor-pointer">
               <span class="text-black font-semibold">{{
                 userFollowing.length
               }}</span>
               Following
             </h1>
-            <h1 class="mr-36 text-grey">
+            <h1 class="mr-36 text-grey hover:underline cursor-pointer">
               <span class="text-black font-semibold">{{
                 userFollower.length
               }}</span>
@@ -95,24 +104,73 @@ import TweetSection from "../home-tweet/TweetSection.vue";
 export default {
   computed: mapGetters([
     "username",
+    "user_id",
     "userProfileInfo",
     "userFollowing",
     "userFollower",
     "userTweets",
+    "accessToken",
+    "loggedInUserFollowsProfileUser",
   ]),
   name: "Profile",
-  methods: {
-    ...mapActions(["getUserProfile"]),
-  },
-  created() {
-    this.getUserProfile(this.$route.params.username);
-  },
   data() {
     return {
-      usernameProps: this.avatar,
-      usernameURL: this.$route.query.username,
+      following: false,
+      follower: true,
     };
   },
+  methods: {
+    ...mapActions(["getUserProfile", "checkAUserFollowsB", "followUser"]),
+    followUserHandler() {
+      const obj = {
+        accessToken: this.accessToken,
+        user_id: this.userProfileInfo[0].id,
+      };
+      this.followUser(obj);
+    },
+  },
+  created() {
+    // this.$watch(
+    //   () => this.$route.params.username,
+    //   () => {
+    //     this.getUserProfile(this.$route.params.username);
+    //     if (this.userFollower.find((user) => user.user_id === this.user_id)) {
+    //       this.following = true;
+    //     }
+    //   }
+    // );
+    const obj = {
+      accessToken: this.accessToken,
+      username: this.$route.params.username,
+    };
+    this.getUserProfile(obj);
+    // if (this.userFollower.find((user) => user.user_id === this.user_id)) {
+    //   this.following = true;
+    // }
+  },
+  watch: {
+    $route(to, from) {
+      if (to !== from) {
+        const obj = {
+          accessToken: this.accessToken,
+          username: this.$route.params.username,
+        };
+        this.getUserProfile(obj);
+        // if (this.userFollower.find((user) => user.user_id === this.user_id)) {
+        //   this.following = true;
+        // }
+      }
+    },
+  },
+  // async beforeRouteUpdate(to, from) {
+  //   // react to route changes...
+  //   console.log(to, from);
+  //   await this.getUserProfile(this.$route.params.username);
+  //   if (this.userFollower.find((user) => user.user_id === this.user_id)) {
+  //     this.following = true;
+  //   }
+  // },
+
   components: {
     TweetSection,
   },

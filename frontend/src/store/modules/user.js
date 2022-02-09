@@ -10,6 +10,8 @@ const state = {
   userTweets: [],
   userFollowing: [],
   userFollower: [],
+  accessToken: "",
+  loggedInUserFollowsProfileUser: false,
 };
 
 const getters = {
@@ -22,6 +24,9 @@ const getters = {
   userTweets: (state) => state.userTweets,
   userFollowing: (state) => state.userFollowing,
   userFollower: (state) => state.userFollower,
+  accessToken: (state) => state.accessToken,
+  loggedInUserFollowsProfileUser: (state) =>
+    state.loggedInUserFollowsProfileUser,
 };
 
 const actions = {
@@ -37,6 +42,8 @@ const actions = {
       commit("setAvatar", response.data.avatar);
       commit("setIsLoggedIn", true);
       commit("setUserId", response.data.id);
+      commit("setAccessToken", response.data.accessToken);
+      console.log("FINDING TOKEN", response.data.accessToken);
       router.push({ path: "/" });
     }
   },
@@ -65,18 +72,35 @@ const actions = {
       commit("setAvatar", newUser.avatar);
       commit("setIsLoggedIn", true);
       commit("setUserId", newUser.id);
+      commit("setAccessToken", newUser.accessToken);
       router.push({ path: "/" });
     }
   },
-  async getUserProfile({ commit }, data) {
+  async getUserProfile({ commit }, { accessToken, username }) {
+    // alert("get user profile called");
+
     const response = await axios({
-      method: "GET",
-      url: `http://localhost:8800/api/users/${data}`,
+      method: "get",
+      url: `http://localhost:8800/api/users/${username}`,
+      headers: { token: accessToken },
     });
+    console.log("From Module", response.data.user);
     commit("setUserProfileInfo", response.data.user);
     commit("setUserTweets", response.data.tweets);
     commit("setUserFollower", response.data.followers);
     commit("setUserFollowing", response.data.following);
+    commit(
+      "setLoggedInUserFollowsProfileUser",
+      response.data.loggedInUserFollowsUsername
+    );
+  },
+  async followUser(state, { accessToken, user_id }) {
+    const url = `http://localhost:8800/api/users/follow/${user_id}`;
+    await axios({
+      method: "post",
+      url: url,
+      headers: { token: accessToken },
+    });
   },
 };
 
@@ -90,6 +114,9 @@ const mutations = {
   setUserTweets: (state, data) => (state.userTweets = data),
   setUserFollowing: (state, data) => (state.userFollowing = data),
   setUserFollower: (state, data) => (state.userFollower = data),
+  setAccessToken: (state, data) => (state.accessToken = data),
+  setLoggedInUserFollowsProfileUser: (state, data) =>
+    (state.loggedInUserFollowsProfileUser = data),
 };
 
 export default {

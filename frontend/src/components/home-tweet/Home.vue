@@ -1,5 +1,5 @@
 <template>
-  <div class="w-1/2 h-full overflow-y-scroll">
+  <div class="lg:w-1/2 h-full overflow-y-scroll">
     <!-- Home Section -->
     <div class="px-5 cursor-pointer pt-4 flex items-center justify-between">
       <h1 class="text-xl font-bold">Home</h1>

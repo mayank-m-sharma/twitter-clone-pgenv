@@ -3,19 +3,23 @@
     <div
       v-bind:key="tweet.created_at"
       v-for="tweet in allTweets"
-      class="flex flex-row pt-5 pb-5 pl-5 pr-5 rounded-lg hover:bg-lightest transform transition duration-200 ease-out"
+      class="flex flex-row lg:p-5 mb-10 ml-3 rounded-lg hover:bg-lightest transform transition duration-200 ease-out"
     >
       <!-- Block 1 - Top left avatar Img -->
-      <img
-        class="h-10 w-10 rounded-full"
-        v-bind:src="`http://localhost:8800/${tweet.avatar}`"
-        alt="avatar"
-      />
+      <router-link :to="`/profile/${tweet.username}`">
+        <img
+          class="h-10 w-10 rounded-full cursor-pointer"
+          v-bind:src="`http://localhost:8800/${tweet.avatar}`"
+          alt="avatar"
+        />
+      </router-link>
       <!-- Block 2 -  -->
       <div class="pl-5 flex flex-col w-full justify-between">
         <!-- block 1 - | name username . time posted -->
         <div class="pb-1 flex flex-row w-1/2 content-center">
-          <p class="font-bold mr-1">{{ tweet.name }}</p>
+          <router-link :to="`/profile/${tweet.username}`">
+            <p class="font-bold mr-1 cursor-pointer">{{ tweet.name }}</p>
+          </router-link>
           <p class="text-sm username mr-2">@{{ tweet.username }}</p>
           <img
             class="h-1 w-1 opacity-1 dot"
@@ -38,7 +42,7 @@
           />
         </div>
         <!-- block 4 - | Tweet action buttons -->
-        <div class="flex flex-row pt-3 pl-12 pr-12 justify-between">
+        <div class="flex flex-row lg:pt-3 lg:pl-12 lg:pr-12 justify-between">
           <div
             class="flex flex-row justify-between items-center cursor-pointer"
           >

@@ -138,7 +138,7 @@ router.post("/follow/:following_user_id", verifyToken, async (req, res) => {
         user_id: req.user.id,
         following_user_id: req.params.following_user_id,
       });
-      res.status(200).json({ followUser, msg: "following successfull" });
+      res.status(200).json({ followUser, msg: "followingsuccessfull" });
     } else {
       res.status(401).json({ msg: "cannot follow a user more than once" });
     }
@@ -146,6 +146,13 @@ router.post("/follow/:following_user_id", verifyToken, async (req, res) => {
     console.log(error);
     res.status(401).json({ msg: "following error" });
   }
+});
+
+// DEBUG
+router.post("/test/:id", (req, res) => {
+  console.log(req.headers.token);
+
+  res.send("ok");
 });
 
 // @route - POST /api/users/unfollow/:follow_user_id
@@ -164,10 +171,41 @@ router.post("/unfollow/:following_user_id", verifyToken, async (req, res) => {
   }
 });
 
+// // @route - GET /api/users/:username
+// // @desc  - Get a single user
+// // @access- Private
+// router.get("/:username", async (req, res) => {
+//   try {
+//     const user = await User.query()
+//       .select("users.*")
+//       .where("username", "=", req.params.username);
+//     // console.log(user);
+//     const tweets = await Tweet.query()
+//       .select("*")
+//       .where("user_id", "=", user[0].id);
+//     const following = await Following.query().where("user_id", "=", user[0].id);
+//     const followers = await Following.query().where(
+//       "following_user_id",
+//       "=",
+//       user[0].id
+//     );
+
+//     res.json({
+//       user,
+//       tweets,
+//       following,
+//       followers,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(404).json({ msg: "error" });
+//   }
+// });
+
 // @route - GET /api/users/:username
 // @desc  - Get a single user
-// @access- Public
-router.get("/:username", async (req, res) => {
+// @access- Private
+router.get("/:username", verifyToken, async (req, res) => {
   try {
     const user = await User.query()
       .select("users.*")
@@ -182,8 +220,17 @@ router.get("/:username", async (req, res) => {
       "=",
       user[0].id
     );
-    // console.log(tweets);
-    res.json({ user, tweets, following, followers });
+    const loggedInUserFollowsUser = followers.find(
+      (user) => user.user_id === req.user.id
+    );
+    const loggedInUserFollowsUsername = !loggedInUserFollowsUser ? false : true;
+    res.json({
+      user,
+      tweets,
+      following,
+      followers,
+      loggedInUserFollowsUsername,
+    });
   } catch (error) {
     console.log(error);
     res.status(404).json({ msg: "error" });

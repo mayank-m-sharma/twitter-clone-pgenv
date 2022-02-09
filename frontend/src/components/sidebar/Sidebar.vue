@@ -4,11 +4,13 @@
   >
     <!-- Upper section | Tabs & Tweet Button div -->
     <div @click="dropdown = false">
-      <button
-        class="transform transition ml-16 duration-200 ease-out h-12 w-12 hover:bg-lightblue text-3xl text-blue"
-      >
-        <i class="fab fa-twitter"></i>
-      </button>
+      <router-link to="/">
+        <button
+          class="transform rounded-full transition ml-16 duration-200 ease-out h-12 w-12 hover:bg-lightblue text-3xl text-blue"
+        >
+          <i class="fab fa-twitter"></i>
+        </button>
+      </router-link>
       <!-- Tabs with icons -->
       <div class="ml-10">
         <Tabs v-bind:tabs="tabs" />
